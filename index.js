@@ -18,7 +18,16 @@ async function run() {
         await client.connect();
         const inventoryCollection = client.db('warehouse-management').collection('inventory')
 
+
         // get all data from database
+        app.get('/inventories',async(req,res)=>{
+            const query = {}
+            const cursor = inventoryCollection.find(query)
+            const inventories = await cursor.toArray();
+            res.send(inventories)
+        })
+
+        // get 6 data from database
         app.get('/inventory', async (req, res) => {
             const query = {}
             const cursor = inventoryCollection.find(query).limit(6)
@@ -35,7 +44,22 @@ async function run() {
             res.send(result)
         })
 
-        
+        // const get data from id
+        app.put('/inventory/:id', async (req, res) => {
+            const id = req.params.id
+            const updateQuantity = req.body;
+            console.log(id, updateQuantity)
+            const filter = { _id: ObjectId(id) }
+            console.log(filter)
+            const options = { upsert: true };
+            const updatedQuantity = {
+                $set: {
+                    quantity: updateQuantity.currentQuantity ,
+                }
+            }
+            const result = await inventoryCollection.updateOne(filter,updatedQuantity,options)
+            res.send(result)
+        })
 
 
     }
