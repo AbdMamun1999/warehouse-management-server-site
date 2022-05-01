@@ -21,7 +21,7 @@ async function run(){
         // get all data from database
         app.get('/inventory',async (req,res)=>{
             const query = {}
-            const cursor =  inventoryCollection.find(query)
+            const cursor =  inventoryCollection.find(query).limit(6)
             const inventories = await cursor.toArray();
             res.send(inventories)
 
