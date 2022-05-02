@@ -44,7 +44,7 @@ async function run() {
             res.send(result)
         })
 
-        // const get data from id
+        // const update data with id
         app.put('/inventory/:id', async (req, res) => {
             const id = req.params.id
             const updateQuantity = req.body;
@@ -58,6 +58,15 @@ async function run() {
                 }
             }
             const result = await inventoryCollection.updateOne(filter,updatedQuantity,options)
+            res.send(result)
+        })
+
+        // Delete Data with id
+        app.delete('/inventory/:id',async(req,res)=>{
+            const id = req.params.id
+            const query = {_id: ObjectId(id)}
+            console.log(query)
+            const result = await inventoryCollection.deleteOne(query)
             res.send(result)
         })
 
