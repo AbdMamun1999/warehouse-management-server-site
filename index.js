@@ -70,6 +70,13 @@ async function run() {
             res.send(result)
         })
 
+        // post data in database
+        app.post('/inventory',async(req,res)=>{
+            const img = req.body
+            const result = await inventoryCollection.insertOne(img)
+            res.send(result)
+        })
+
 
     }
     finally { }
