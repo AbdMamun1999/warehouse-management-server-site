@@ -27,6 +27,15 @@ async function run() {
             res.send(inventories)
         })
 
+        // search by email
+        app.get('/myItems',async(req,res)=>{
+            const email = req.query.email;
+            const query = {email:email}
+            const cursor = inventoryCollection.find(query)
+            const inventories = await cursor.toArray();
+            res.send(inventories)
+        })
+
         // get 6 data from database
         app.get('/inventory', async (req, res) => {
             const query = {}
@@ -69,6 +78,8 @@ async function run() {
             const result = await inventoryCollection.deleteOne(query)
             res.send(result)
         })
+
+       
 
         // post data in database
         app.post('/inventory',async(req,res)=>{
