@@ -110,17 +110,6 @@ async function run() {
             res.send(result)
         })
 
-        // delete myItem data with id
-        /* app.delete('/myItems/:id', async(req,res)=>{
-            const id = req.params.id
-            console.log(id)
-            const query = {_id:ObjectId(id)}
-            const result = await inventoryCollection.deleteOne(query)
-            res.send(result)
-        }) */
-
-
-
         // post data in database
         app.post('/inventory', async (req, res) => {
             const img = req.body
@@ -135,11 +124,6 @@ async function run() {
 }
 
 run().catch(console.dir)
-/* client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-}); */
 
 
 app.get('/', (req, res) => {
