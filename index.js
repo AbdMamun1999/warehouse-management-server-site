@@ -19,7 +19,6 @@ function authorization(req, res, next) {
         if (err) {
             return res.status(403).send({ massage: 'Forbiden access' })
         }
-        console.log(decoded, 'decoded')
         req.decoded = decoded;
         next();
     })
@@ -88,9 +87,7 @@ async function run() {
         app.put('/inventory/:id', async (req, res) => {
             const id = req.params.id
             const updateQuantity = req.body;
-            console.log(id, updateQuantity)
             const filter = { _id: ObjectId(id) }
-            console.log(filter)
             const options = { upsert: true };
             const updatedQuantity = {
                 $set: {
@@ -105,7 +102,6 @@ async function run() {
         app.delete('/inventory/:id', async (req, res) => {
             const id = req.params.id
             const query = { _id: ObjectId(id) }
-            console.log(query)
             const result = await inventoryCollection.deleteOne(query)
             res.send(result)
         })
